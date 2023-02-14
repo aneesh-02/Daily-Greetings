@@ -1,10 +1,26 @@
 // Function to fire when DOM is ready
 $(document).ready(function () {
-  //current time funtcion and interval every 10 seconds;
+  //current time function and interval every 10 seconds;
   setCurrentTime();
   setInterval(function () {
     setCurrentTime();
   }, 10 * 1000);
+
+  //setting background every 1 hour;
+  setBackground();
+  setInterval(function () {
+    setBackground();
+  }, 3600 * 1000);
+
+  //Weather
+  navigator.geolocation.getCurrentPosition(function (position) {
+    let lat = position.coords.latitude;
+    let long = position.coords.longitude;
+
+    console.log(lat);
+    console.log(long);
+    getWeather(lat, long);
+  });
 
   var username = localStorage.getItem("user"); //Get the name
   //check username
@@ -36,6 +52,8 @@ $(document).ready(function () {
   });
 });
 
+// FUNCTIONS:
+
 function timeGreeting() {
   var now = new Date();
   var greetingTime;
@@ -61,4 +79,64 @@ function setCurrentTime() {
   } else {
     $(".time").html(now.getHours() + ":" + now.getMinutes()); //Display the time
   }
+}
+
+function setBackground() {
+  var apiKey = "mtgokT6He8dnLIfauUW5N4WJZMjUmto2WIxC43ggh3E";
+  var urlData = new URL(
+    "https://source.unsplash.com/1600x900/?nature,mountains,beach&client_id=${apiKey}"
+  );
+  $(".backgroundLayout").css("background-image", `url(${urlData})`); //Set the background image
+}
+
+var first_click = true;
+function searchIconClick() {
+  if (first_click == true) {
+    $(".searchInput").css("opacity", "100");
+    first_click = false;
+  } else if (first_click == false) {
+    $(".searchInput").css("opacity", "0");
+    first_click = true;
+  }
+}
+
+function getWeather(lat, lon) {
+  var apiURI =
+    "http://api.openweathermap.org/data/2.5/weather?lat=" +
+    lat +
+    "&lon=" +
+    lon +
+    "&appid=fe6e1549be27ad99dfa748f2b6362337";
+
+  $.ajax({
+    url: apiURI,
+    dataType: "json",
+    type: "GET",
+    async: "false",
+    success: function (resp) {
+      console.log(apiURI);
+      console.log(resp.name);
+
+      if (resp.name) {
+        $(".weatherLocation").html(resp.name);
+      }
+      if (resp.main.temp) {
+        var cels = resp.main.temp - 273.15;
+        console.log(cels);
+        var celsFormat = cels.toFixed(2);
+        $("#weatherTemp").html(`${celsFormat}&#176`);
+      }
+
+      if (resp.weather) {
+        var imgURL =
+          "http://openweathermap.org/img/w/" + resp.weather[0].icon + ".png";
+        console.log(imgURL);
+        document.getElementById("weatherIcon").src = imgURL;
+      }
+    },
+    error: function (resp) {
+      alert("Error: " + e);
+      clearInterval(updateinter);
+    },
+  });
 }

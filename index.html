@@ -13,6 +13,30 @@
 
 <body class="backgroundLayout">
     <div class="overlay">
+
+        <div class="top">
+            <div class="left">
+                <!-- <span class="links"  onclick="MenuIconClick()">Links</span> -->
+
+                <span class="search-Icon" onclick="searchIconClick()">
+                    <i class="fas fa-search"></i>
+                </span>
+
+                <form class="searchInput" method="get" action="http://www.google.com/search">
+                    <input type="text" name="q" id="search-input" class="search-input" autocomplete="off">
+                </form>
+
+            </div>
+
+            <div class="right">
+                <span><img class="weatherIcon" id="weatherIcon" src="" /></span>
+                <span class="weatherTemp" id="weatherTemp"></span>
+                <div class="weatherLocation"></div>
+            </div>
+        </div>
+
+
+
         <h1 class="time"></h1>
         <h2 class="greeting"></h2>
         <input class="user-name" type="text" placeholder="Enter your name">

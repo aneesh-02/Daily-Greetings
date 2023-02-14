@@ -1,5 +1,6 @@
 html, body{
     height:100%;
+    /* background-image: "https://source.unsplash.com/1600x900/?nature,mountains"; */
   }
 
 body {
@@ -13,7 +14,7 @@ body {
 .overlay{
     width:100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 1);
+    background-color: rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,4 +46,81 @@ input.user-name{
     margin-top: 20px;
     display: none;
 }
-  
+ 
+.top {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    font-size: 17px;
+    height: 50px;
+    display: flex;
+    color: rgba(255,255,255,0.85);
+}
+
+    .top .left {
+        position: absolute;
+        top: 20px;
+        left: 15px;
+        display: inline;
+    }
+
+    .top .left .links {
+        padding-right: 10px;
+        cursor: pointer;
+    }
+
+    .top .left .search-Icon:hover {
+        color: blue;
+        cursor: pointer;
+    }
+
+    .top .left .searchInput {
+        opacity:0;
+        display: inline;
+    }
+
+    .top .left .searchInput .search-input {
+        background: 0;
+        border: 0;
+        border-bottom: 2px solid #fff;
+        outline: 0;
+        color: #fff;
+        cursor: pointer;
+        font-size: 17px;
+        width: 190px;
+        margin-left:10px;
+    }
+
+    .top .left .links:hover {
+        transition: all 0.10s ease-out;
+        color: rgba(255,255,255,1.0)
+    }
+
+    .top .right {
+        position: absolute;
+        top: 20px;
+        height: 100px;
+        right: 15px;
+        width: 15%;
+        cursor: pointer;
+        display: block;
+        text-align: right;
+        font-size: 25px;
+    }
+
+    .top .right .weatherTemp {
+        top: 8px;
+        right: 0px;
+    }
+
+    .top .right .weatherIcon {
+        position: absolute;
+        top: 0px;
+        left: 15px;
+    }
+
+    .top .right .weatherLocation {
+            display: block;
+        }
+
+    
