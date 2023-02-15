@@ -53,6 +53,7 @@ $(document).ready(function () {
       });
     }
   });
+
   var interest = localStorage.getItem("interest");
   //check interest
   if (interest) {
@@ -80,6 +81,137 @@ $(document).ready(function () {
       });
     }
   });
+
+  // TODO LIST
+  var todoDict;
+
+  //Loading list
+  var todoDictMaster = JSON.parse(window.localStorage.getItem("meta"));
+
+  if (todoDictMaster) {
+    //fo each item in dictionary
+    //Call add todo list displa
+    todoDict = todoDictMaster;
+    for (var key in todoDict) {
+      // check if the property/key is defined in the object itself, not in parent
+      if (todoDict.hasOwnProperty(key)) {
+        console.log(key, todoDict[key]);
+        todoListDisplay(key);
+      }
+    }
+  } else {
+    todoDict = {};
+  }
+
+  var itemAmount = 0;
+
+  //If TODO entered
+  $(".TodoList").keypress(function (e) {
+    if (e.which == 13) {
+      console.log("add button was pressed");
+
+      if (
+        itemAmount < 6 ||
+        document.getElementById("TodoList").value == null ||
+        document.getElementById("TodoList").value == "" ||
+        document.getElementById("TodoList").value.length == 0
+      ) {
+        //Call the add todolistDisplay
+
+        // 1. get whatever person wrote in the text inputBox
+        var item = document.getElementById("TodoList").value;
+        todoDict[item] = "no";
+        todoListDisplay(item);
+      }
+    }
+  });
+
+  function todoListDisplay(item) {
+    console.log("Person wants to add: " + item);
+
+    // 2. create an <li> item
+    var li = document.createElement("li");
+    li.style.listStyleType = "none";
+    li.style.marginTop = "5px";
+
+    li.innerHTML = item;
+
+    console.log("Checkpoint 1");
+
+    // 3. add it to your grocery List
+    document.getElementById("TodolistData").appendChild(li);
+
+    // 4.1 create a complete button
+    var completeButton = document.createElement("button");
+    completeButton.innerHTML = "Complete";
+    completeButton.className += "ButtonsComplete";
+
+    completeButton.addEventListener("click", function (e) {
+      // get the element BEFORE the button (Text)
+      var listItem = completeButton.previousSibling;
+      listItem.style.textDecoration = "line-through";
+
+      todoDict[listItem.innerHTML] = "yes";
+
+      console.log(todoDict);
+
+      console.log(itemAmount);
+
+      saveTodoList();
+    });
+
+    // 4.2 create a remove button
+    var removeButton = document.createElement("button");
+    removeButton.innerHTML = "Delete";
+    removeButton.className += "ButtonsClearer";
+
+    removeButton.addEventListener("click", function (e) {
+      // get the element BEFORE the button (The complete button)
+      var buttonCom = removeButton.previousSibling;
+      // remove it from the dom
+      buttonCom.remove();
+
+      // get the element BEFORE the button (Text)
+      var listItem = removeButton.previousSibling;
+
+      // remove from list
+      delete todoDict[listItem.innerHTML];
+
+      // remove it from the dom
+      listItem.remove();
+
+      // remove the button from the dom
+      this.remove();
+      itemAmount -= 1;
+      console.log(itemAmount);
+
+      saveTodoList();
+    });
+
+    document.getElementById("TodolistData").appendChild(completeButton);
+
+    // 5. add the button to the list
+    document.getElementById("TodolistData").appendChild(removeButton);
+
+    // 4. clear the text inputBox
+    document.getElementById("TodoList").value = "";
+    itemAmount += 1;
+    console.log(itemAmount);
+
+    if (todoDict[item] == "yes") {
+      // get the element BEFORE the button (Text)
+      var listItem = completeButton.previousSibling;
+      listItem.style.textDecoration = "line-through";
+    }
+
+    console.log("Checkpoint 3");
+
+    saveTodoList();
+  }
+
+  function saveTodoList() {
+    window.localStorage.setItem("meta", JSON.stringify(todoDict));
+  }
 });
 
 // FUNCTIONS:

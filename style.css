@@ -239,3 +239,68 @@ input.user-name{
         color: red;
         cursor: pointer;
     }
+
+.right-top {
+    position: absolute;
+    bottom: 20%;
+    width: 20%;
+    right: 15px;
+    font-size: 17px;
+    text-align: center;
+    display: flex;
+    color: rgba(255,255,255,0.85);
+    border-radius: 20px;
+    height: 400px;
+    background-color: rgb(28, 28, 28);
+    opacity: 0.8;
+    }
+    
+    .right-top .right-center {
+        width: 100%;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: 25px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .right-top .right-center .TodoList {
+        background: 0;
+        border: 0;
+        border-bottom: 2px solid #fff;
+        outline: 0;
+        font-size: 15px;
+        color: #fff;
+        text-align: center;
+        width: 100%;
+        cursor: pointer;    
+    } 
+    
+    .right-top .right-center .TodolistData {
+        list-style-type: none;
+        padding: 0px;
+    }
+     
+    .right-top .right-center .TodolistData .ButtonsClearer{
+        border: 0px;
+        color: black;
+        border-radius: 25px;
+        outline: none;
+        margin: 10px;
+    }
+    
+    .right-top .right-center .TodolistData .ButtonsClearer:hover {
+        background-color: #f44336;
+    }
+    
+    .right-top .right-center .TodolistData .ButtonsComplete {
+        border: 0px;
+        color: black;
+        border-radius: 25px;
+        outline: none;
+        margin: 10px;
+    }
+    
+    .right-top .right-center .TodolistData .ButtonsComplete:hover {
+        background-color: #4CAF50;
+    }    
