@@ -22,6 +22,9 @@ $(document).ready(function () {
     getWeather(lat, long);
   });
 
+  //Bottom Quote
+  randomQuote();
+
   var username = localStorage.getItem("user"); //Get the name
   //check username
   if (username) {
@@ -35,7 +38,7 @@ $(document).ready(function () {
     $(".user-name").css("display", "inline-block"); //Some styling (Show it)
     $(".greeting").html(`What's your name?`); //Ask for the name
   }
-
+  // If username entered
   $(".user-name").keypress(function (e) {
     if (e.which == 13) {
       var username = e.target.value;
@@ -46,6 +49,33 @@ $(document).ready(function () {
         $(".greeting").html(`${timeGreeting()} ${username}.`); //Display random greeting
         $(".greeting").fadeIn(function () {
           localStorage.setItem("user", username); //Save the name
+        });
+      });
+    }
+  });
+  var interest = localStorage.getItem("interest");
+  //check interest
+  if (interest) {
+    $(".interestText").css("display", "inline-block");
+    $(".interest").css("display", "none");
+    $(".interestText").html(`${interest}.`); //Display name
+  } else {
+    $(".interestText").css("display", "none"); //Some styling
+    $(".interest").css("display", "inline-block"); //Some styling (Show it)
+    $(".interestText").html(`What's your main focus for today?`); //Ask for the name
+  }
+  //If interest entered
+  $(".interest").keypress(function (e) {
+    if (e.which == 13) {
+      var interest = e.target.value;
+
+      if (!interest) return;
+      $(".interest").fadeOut(function () {
+        //Fade out user-name and insert greeting
+        $(".interestText").css("text-decoration", "none");
+        $(".interestText").html(`${interest}.`); //Display interest
+        $(".interestText").fadeIn(function () {
+          localStorage.setItem("interest", interest); //Save the name
         });
       });
     }
@@ -139,4 +169,36 @@ function getWeather(lat, lon) {
       clearInterval(updateinter);
     },
   });
+}
+
+function randomQuote() {
+  $.ajax({
+    url: "https://api.forismatic.com/api/1.0/?",
+    dataType: "jsonp",
+    data: "method=getQuote&format=jsonp&lang=en&jsonp=?",
+    success: function (quoteData) {
+      //Change quotation
+      $(".Quotation").html('"' + quoteData.quoteText + '"');
+      //Change quotation author
+      if (quoteData.quoteAuthor != null || quoteData.quoteAuthor != "") {
+        $("#Author").html("-" + quoteData.quoteAuthor);
+      } else {
+        $("#Author").html("-Unkown");
+      }
+    },
+  });
+}
+
+function clearInterest() {
+  localStorage.clear("interest");
+  $(".interestText").css("display", "none"); //Some styling
+  $(".interest").css("display", "inline-block"); //Some styling (Show it)
+  $(".interestText").html(`What's your main focus for today?`); //Ask for the name
+}
+
+function completeInterest() {
+  var ele = document.getElementsByClassName("interestText");
+  for (var i = 0; i < ele.length; i++) {
+    ele[i].style.setProperty("text-decoration", "line-through");
+  }
 }

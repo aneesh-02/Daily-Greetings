@@ -17,15 +17,12 @@
         <div class="top">
             <div class="left">
                 <!-- <span class="links"  onclick="MenuIconClick()">Links</span> -->
-
                 <span class="search-Icon" onclick="searchIconClick()">
                     <i class="fas fa-search"></i>
                 </span>
-
                 <form class="searchInput" method="get" action="http://www.google.com/search">
                     <input type="text" name="q" id="search-input" class="search-input" autocomplete="off">
                 </form>
-
             </div>
 
             <div class="right">
@@ -35,11 +32,31 @@
             </div>
         </div>
 
-
-
         <h1 class="time"></h1>
         <h2 class="greeting"></h2>
         <input class="user-name" type="text" placeholder="Enter your name">
+
+        <div class="left-bottom">
+            <div class="left-center">
+
+                <input type="text" class="interest" placeholder="What's your main focus for today?">
+                <span class="interestText"></span>
+
+                <span class="Interet-Icons-Check" onclick="completeInterest()"><i class="fas fa-check"></i></span>
+                <span class="Interet-Icons-Clear" onclick="clearInterest()"><i class="fas fa-times"></i></span>
+            </div>
+        </div>
+
+
+        <div class="bottom">
+            <div class="center">
+                <div>
+                    <span id="Quotation" class="Quotation"></span><br />
+                    <span id="Author" class="Quotation"></span>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>
