@@ -6,9 +6,9 @@ It replaces the default "New Tab" page with a custom page that displays the curr
 
 This project was created using the following tools and resources:
 
-HTML, CSS, and JavaScript
-jQuery library
-Ajax
-OpenWeatherMap API
-Forismatic API
-Unspash API
+HTML, CSS and JavaScript
+<br>jQuery library
+<br>Ajax
+<br>OpenWeatherMap API
+<br>Forismatic API
+<br>Unspash API
